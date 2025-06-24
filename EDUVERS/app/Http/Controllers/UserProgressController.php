@@ -43,7 +43,6 @@ class UserProgressController extends Controller
                 ]
             );
 
-            // Ensure completed_tasks is an array
             if (!is_array($progress->completed_tasks)) {
                 $progress->completed_tasks = [];
                 $progress->save();
@@ -201,8 +200,16 @@ class UserProgressController extends Controller
         try {
             $timeInSeconds = $this->convertTimestampToSeconds($validated['timestamp']);
 
-            // Implement your logic to fetch tasks for the given level
-            // and mark them as completed if their time <= $timeInSeconds.
+            // Here, implement your logic to fetch tasks for the given level
+            // whose timestamp (converted to seconds) is less than or equal to $timeInSeconds.
+            // For example, if your tasks table has a numeric column "timestamp_in_seconds":
+            //
+            // $tasksToMark = Task::where('level_id', $validated['level_id'])
+            //     ->where('timestamp_in_seconds', '<=', $timeInSeconds)
+            //     ->get();
+            //
+            // Then, for each task, mark it as completed using your completeTask logic.
+            //
             // For demonstration, we assume the tasks have been marked.
 
             return response()->json([

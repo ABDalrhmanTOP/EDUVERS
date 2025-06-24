@@ -5,11 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-/**
- * Class UserProgress
- *
- * @method bool save(array $options = [])
- */
 class UserProgress extends Model
 {
     use HasFactory;
@@ -19,7 +14,7 @@ class UserProgress extends Model
     protected $fillable = [
         'user_id',
         'video_id',
-        'playlist_id', // Make sure this column exists in the user_progress table
+        'playlist_id',    // Make sure this column exists in `user_progress` table
         'last_timestamp',
         'completed_tasks',
     ];
@@ -41,16 +36,13 @@ class UserProgress extends Model
     }
 
     /**
-     * Accessor for completed_tasks.
+     * Accessor/Mutator for completed_tasks
      */
     public function getCompletedTasksAttribute($value)
     {
         return json_decode($value, true) ?? [];
     }
 
-    /**
-     * Mutator for completed_tasks.
-     */
     public function setCompletedTasksAttribute($value)
     {
         $this->attributes['completed_tasks'] = json_encode($value);
